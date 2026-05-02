@@ -86,7 +86,7 @@ function register(event) {
           document.getElementById("email").value = "";
           document.getElementById("password").value = "";
           setTimeout(() => {
-            window.location.href = "../html/chat.html";
+            window.location.href = "./html/chat.html";
           }, 1500);
         })
         .catch((error) => {
