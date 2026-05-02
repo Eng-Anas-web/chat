@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="QuickChat is a fast and simple modern chat platform that lets you connect and communicate instantly with friends in a smooth and secure way"
+    />
+    <meta name="keywords" content="QuickChat , chat , message , communction" />
+    <title>QuikChat</title>
+    <link rel="icon" href="../image/icon.png" />
+    <link rel="stylesheet" href="../icons/css/all.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/chat.css" />
+    <link rel="stylesheet" href="../css/media.css" />
+  </head>
+  <body>
+    <main>
+      <section>
+        <div class="d-flex justify-content-center gap-5 chat-users">
+          <div
+            class="align-items-center justify-content-between users d-md-block"
+          >
+            <div class="p-15px">
+              <div class="top-nav">
+                <a
+                  href="https://wa.me/201019510963"
+                  target="_blank"
+                  class="nav-link"
+                >
+                  <i class="fa-brands fa-whatsapp fa-lg text-success"></i>
+                  للشكاوي
+                </a>
+              </div>
+              <div class="serch mt-4">
+                <input
+                  type="search"
+                  class="form-control"
+                  placeholder="Serch By User Name........."
+                  id="searchByUserName"
+                />
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </div>
+            </div>
+            <section><div class="not-user bg-danger rounded-3 p-5 d-none">
+  <h1 class="text-white text-center">NO Users</h1>
+</div>
+              <div class="mt-3 usersss" id="usersContainer">
+
+              </div>
+            </section>
+          </div>
+          <div class="chat align-self-start d-none d-md-block" id="chat">
+            <div
+              class="noMessage d-flex flex-column align-items-center justify-content-evenly"
+            >
+              <div class="text-center">
+                <i class="fa-solid fa-comments fa-2xl"></i>
+                <h1 class="mt-3">Quick Chat for windows</h1>
+                <p class="mt-4">
+                  Grow, organise and manage your bussiness account
+                </p>
+              </div>
+              <div
+                class="d-flex align-items-center justify-content-center mt-250px"
+              >
+                <i class="fa-solid fa-lock text-secondary"></i>
+                <p class="text-secondary fs-12px">
+                  Your private messages are fully encrypted with Caesar cipher.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+
+    <script src="../js/index.js"></script>
+    <script src="../js/chat.js"></script>
+  </body>
+</html>

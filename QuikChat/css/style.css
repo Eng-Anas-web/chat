@@ -1,0 +1,73 @@
+/********************SignUp***********************/
+body {
+  background-image: url("../image/main.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 100vh;
+}
+
+.quick i {
+  color: #3033f7;
+}
+
+.signUp {
+  background-color: #395dc994;
+  border-radius: 13px;
+  outline: 2px solid rgba(1, 30, 220, 0.413);
+  width: 340px;
+  padding: 30px;
+}
+.userName {
+  position: relative;
+  width: 100%;
+}
+
+.userName input {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 2px solid #999;
+  outline: none;
+  font-size: 16px;
+  background: transparent;
+}
+
+.userName label {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+.userName input:focus + label,
+.userName input:not(:placeholder-shown) + label {
+  top: -8px;
+  transform: translateY(0);
+  font-size: 12px;
+  color: #2702de;
+}
+
+/* لون الخط */
+.userName input:focus {
+  border-bottom: 2px solid #2702de;
+}
+
+.btnSignUp button {
+  background: linear-gradient(135deg, #2702de, #4cb7ff, #a89bff);
+  border-radius: 15px;
+  padding: 10px 0;
+  border: none;
+}
+
+.login {
+  font-size: 0.875rem;
+}
+
+.login a {
+  color: #2702de;
+}

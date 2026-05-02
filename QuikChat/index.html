@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="QuickChat is a fast and simple modern chat platform that lets you connect and communicate instantly with friends in a smooth and secure way"
+    />
+    <meta name="keywords" content="QuickChat , chat , message , communction" />
+    <title>QuikChat</title>
+    <link rel="icon" href="./image/icon.png" />
+    <link rel="stylesheet" href="./icons/css/all.min.css" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/media.css" />
+  </head>
+  <body class="d-flex align-items-center justify-content-center">
+    <main>
+      <section>
+        <div class="signUp">
+          <div class="quick d-flex align-items-center justify-content-Start">
+            <h3 class="text-white">Quick Chat</h3>
+            <i class="fa-solid fa-comments fa-xl ms-2"></i>
+          </div>
+          <form id="sumbitData">
+            <div class="userName mt-4">
+              <input type="text" id="name" placeholder="" />
+              <label>User Name</label>
+              <small id="nameAlert" class="text-danger"></small>
+            </div>
+
+            <div class="userName email mt-4">
+              <input type="email" id="email" placeholder="" />
+              <label>Email</label>
+              <small id="emailAlert" class="text-danger"></small>
+            </div>
+            <div class="userName password mt-4 position-relative">
+              <input type="password" id="password" placeholder="" />
+
+              <label>Password</label>
+
+              <!-- 👇 أيقونة العين -->
+              <i
+                id="toggleEye"
+                class="fa-solid fa-eye"
+                onclick="togglePassword()"
+                style="
+                  position: absolute;
+                  right: 10px;
+                  top: 25px;
+                  cursor: pointer;
+                  color: #999;
+                "
+              >
+              </i>
+
+              <small id="passwordAlert" class="text-danger"></small>
+            </div>
+            <p id="registerAlert" class="text-center mt-3 fw-bold"></p>
+            <div class="btnSignUp w-100 mt-4">
+              <button type="submit" class="w-100 btn text-white">
+                Sign Up
+              </button>
+            </div>
+          </form>
+          <p class="text-white m-0 mt-4 login text-center">
+            Do you already have an account?
+            <span><a href="./html/login.html">Login</a></span>
+          </p>
+        </div>
+      </section>
+    </main>
+    <div id="loader" class="d-none" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+    <div class="spinner-border text-light" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/index.js"></script>
+  </body>
+</html>

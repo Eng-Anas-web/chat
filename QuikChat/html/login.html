@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="QuickChat is a fast and simple modern chat platform that lets you connect and communicate instantly with friends in a smooth and secure way"
+    />
+    <meta name="keywords" content="QuickChat , chat , message , communction" />
+    <title>QuikChat</title>
+    <link rel="icon" href="../image/icon.png" />
+    <link rel="stylesheet" href="../icons/css/all.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/media.css" />
+  </head>
+  <body class="d-flex align-items-center justify-content-center">
+    <main>
+      <section>
+        <div class="signUp">
+          <div class="quick d-flex align-items-center justify-content-Start">
+            <h3 class="text-white">Quick Chat</h3>
+            <i class="fa-solid fa-comments fa-xl ms-2"></i>
+          </div>
+          <form id="loginForm">
+            <div class="userName email mt-4">
+              <input type="email" id="email" placeholder="" />
+              <label for="email">Email</label>
+            </div>
+            <div class="userName password mt-4 position-relative">
+              <input type="password" id="password" placeholder="" />
+
+              <label>Password</label>
+
+              <!-- 👇 أيقونة العين -->
+              <i
+                id="toggleEye"
+                class="fa-solid fa-eye"
+                onclick="togglePassword()"
+                style="
+                  position: absolute;
+                  right: 10px;
+                  top: 25px;
+                  cursor: pointer;
+                  color: #999;
+                "
+              >
+              </i>
+
+              <small id="passwordAlert" class="text-danger"></small>
+            </div>
+
+            <p id="loginAlert" class="text-danger text-center mt-3 fw-bold"></p>
+
+            <div class="btnSignUp w-100 mt-2">
+              <button type="submit" class="w-100 btn text-white">Login</button>
+            </div>
+          </form>
+          <p class="text-white m-0 mt-4 login text-center">
+            Dont have an account?
+            <span><a href="../index.html">Sign up</a></span>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script src="../js/login.js"></script>
+  </body>
+</html>

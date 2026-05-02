@@ -1,0 +1,59 @@
+@media (min-width: 370px) {
+}
+
+@media (min-width: 576px) {
+}
+
+@media (min-width: 768px) {
+  .users {
+    width: 40%;
+  }
+
+  .chat {
+    width: 60%;
+    padding-left: 15px;
+  }
+
+  .usersss {
+    overflow-y: auto;
+  }
+  .chat-users {
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    margin-top: 25px;
+    margin-left: 15px;
+    padding: 15px 0 0 15px;
+    background-color: white;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border: 1px solid rgb(149, 146, 146);
+  }
+  .akjd {
+    border-bottom: 1px solid rgba(127, 125, 125, 0.463);
+    border-left: 1px solid rgba(127, 125, 125, 0.463);
+    padding: 0;
+    padding-left: 15px;
+    padding-bottom: 15px;
+  }
+
+  .background-chat {
+    height: 565px !important;
+    padding-left: 15px;
+    border: none;
+    border-left: 1px solid rgba(127, 125, 125, 0.463);
+  }
+
+  .p-15px {
+    padding: 0;
+  }
+}
+
+@media (min-width: 992px) {
+}
+
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 1400px) {
+}
