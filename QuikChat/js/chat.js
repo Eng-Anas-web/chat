@@ -61,16 +61,19 @@ document.addEventListener("DOMContentLoaded", () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
 
-        // 🔴 FORCE LOGOUT (مرة واحدة فقط)
-        db.collection("users").doc(user.uid)
-          .onSnapshot((doc) => {
-            if (!doc.exists) {
-              auth.signOut().then(() => {
-                alert("تم حذف حسابك من النظام");
-                window.location.href = "../index.html";
-              });
-            }
-          });
+      const unsubscribe = db.collection("users").doc(user.uid)
+  .onSnapshot((doc) => {
+    if (!doc.exists) {
+      unsubscribe(); // ⛔ وقف الاستماع عشان ميتكررش
+
+      auth.signOut().then(() => {
+        alert("تم حذف حسابك من النظام");
+
+        // ⬇️ استخدم replace بدل href (أفضل في الحالة دي)
+        window.location.replace("./index.html");
+      });
+    }
+  });
 
         // Online status
         db.collection("users").doc(user.uid).update({ status: "online" });
