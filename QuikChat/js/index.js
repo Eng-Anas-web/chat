@@ -97,7 +97,7 @@ function register(event) {
 
   // ⬇️ التحويل بعد 1.5 ثانية (زي ما عندك)
   setTimeout(() => {
-    window.location.href = "/QuikChat/html/chat.html";
+    window.location.href = "/chat/QuikChat/html/chat.html";
   }, 1500);
 })
         .catch((error) => {
