@@ -77,18 +77,29 @@ function register(event) {
             .doc(userCredential.user.uid)
             .set({ name, email, uid: userCredential.user.uid });
         })
-        .then(() => {
-          if (registerAlert) {
-            registerAlert.classList.add("text-success");
-            registerAlert.textContent = "✔ Account created successfully!";
-          }
-          document.getElementById("name").value = "";
-          document.getElementById("email").value = "";
-          document.getElementById("password").value = "";
-          setTimeout(() => {
-            window.location.href = "./html/chat.html";
-          }, 1500);
-        })
+.then(() => {
+  if (registerAlert) {
+    registerAlert.classList.add("text-success");
+    registerAlert.textContent = "✔ Account created successfully!";
+  }
+
+  document.getElementById("name").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("password").value = "";
+
+  // ⬇️ إخفاء الرسالة بعد 2 ثانية
+  setTimeout(() => {
+    if (registerAlert) {
+      registerAlert.textContent = "";
+      registerAlert.className = "";
+    }
+  }, 2000);
+
+  // ⬇️ التحويل بعد 1.5 ثانية (زي ما عندك)
+  setTimeout(() => {
+    window.location.href = "../html/chat.html";
+  }, 1500);
+})
         .catch((error) => {
           if (error.code === "auth/email-already-in-use")
             document.getElementById("emailAlert").textContent = "❌ This email is already registered";
