@@ -81,7 +81,7 @@ h6 {
 .background-chat {
   padding-top: 20px;
   overflow-y: auto;
-  height: 515px !important;
+  height: 500px ;
   padding-left: 15px;
   border: 1px solid rgba(127, 125, 125, 0.463);
   background-image: url("../image/bac.png");
