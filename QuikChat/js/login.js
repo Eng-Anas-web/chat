@@ -50,7 +50,7 @@ if (loginForm) {
         // 👇 تأخير عشان الرسالة تظهر
         setTimeout(() => {
           alertBox.textContent = "";
-          window.location.href = "/QuikChat/html/chat.html";
+          window.location.href = "/chat/QuikChat/html/chat.html";
         }, 1000);
 
       })
