@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!doc.exists) {
               auth.signOut().then(() => {
                 alert("تم حذف حسابك من النظام");
-                window.location.href = "/index.html";
+                window.location.href = "/QuikChat/index.html";
               });
             }
           });
