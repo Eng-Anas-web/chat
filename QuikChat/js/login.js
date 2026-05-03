@@ -45,7 +45,7 @@ if (loginForm) {
         // 👇 السطور الجديدة لتفريغ الحقول فوراً بعد النجاح
         document.getElementById("email").value = "";
         document.getElementById("password").value = "";
-        window.location.href = "./html/chat.html"; // تأكد من مسار واسم صفحة الشات
+        window.location.href = "../html/chat.html"; // تأكد من مسار واسم صفحة الشات
       })
       .catch((error) => {
         alertBox.classList.remove("text-success");
