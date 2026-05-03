@@ -36,15 +36,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const noUsersDiv = document.querySelector(".not-user");
 
   // 1. السيرش
-  if (searchInput) {
-    searchInput.addEventListener("input", (e) => {
-      const searchText = e.target.value.toLowerCase();
-      document.querySelectorAll(".account-user").forEach((card) => {
-        const name = card.querySelector("h5").innerText.toLowerCase();
-        card.style.display = name.includes(searchText) ? "" : "none";
-      });
+if (searchInput) {
+  const notFoundDiv = document.querySelector(".not-found");
+
+  searchInput.addEventListener("input", (e) => {
+    const searchText = e.target.value.toLowerCase();
+    let found = false;
+
+    document.querySelectorAll(".account-user").forEach((card) => {
+      const name = card.querySelector("h5").innerText.toLowerCase();
+
+      if (name.includes(searchText)) {
+        card.style.display = "";
+        found = true;
+      } else {
+        card.style.display = "none";
+      }
     });
-  }
+
+    // 👇 اظهار او اخفاء الرسالة
+    if (notFoundDiv) {
+      notFoundDiv.classList.toggle("d-none", found || searchText === "");
+    }
+  });
+}
 
   // 2. الضغط على اليوزر
   if (usersContainer) {
