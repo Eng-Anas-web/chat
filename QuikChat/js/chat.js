@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("searchByUserName");
   const noUsersDiv = document.querySelector(".not-user");
 
-   // 1. السيرش
+  // 1. السيرش
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
       const searchText = e.target.value.toLowerCase();
@@ -45,13 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
-
-    // 👇 اظهار او اخفاء الرسالة
-    if (notFoundDiv) {
-      notFoundDiv.classList.toggle("d-none", found || searchText === "");
-    }
-  });
-}
 
   // 2. الضغط على اليوزر
   if (usersContainer) {
@@ -67,17 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (auth) {
     auth.onAuthStateChanged((user) => {
       if (user) {
-db.collection("users").doc(user.uid)
-  .onSnapshot((doc) => {
-    if (!doc.exists) {
-      auth.signOut().then(() => {
-        localStorage.clear();
-        sessionStorage.clear();
-        window.location.href = "../index.html";
-      });
-    }
-  });
-        // 🔴 FORCE LOGOUT (لو الحساب اتحذف)
+
+        // 🔴 FORCE LOGOUT (مرة واحدة فقط)
         db.collection("users").doc(user.uid)
           .onSnapshot((doc) => {
             if (!doc.exists) {
@@ -103,7 +87,8 @@ db.collection("users").doc(user.uid)
           snapshot.forEach((doc) => {
             let u = doc.data();
 
-            if (u.uid !== user.uid) {
+            // 🔴 التعديل هنا
+            if (doc.id !== user.uid) {
               hasUsers = true;
 
               let chatId =
@@ -150,7 +135,6 @@ db.collection("users").doc(user.uid)
             }
           });
 
-          // NO USERS
           if (noUsersDiv) {
             noUsersDiv.classList.toggle("d-none", hasUsers);
           }
