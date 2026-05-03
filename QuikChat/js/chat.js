@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("تم حذف حسابك من النظام");
 
         // ⬇️ استخدم replace بدل href (أفضل في الحالة دي)
-        window.location.replace("./index.html");
+        window.location.replace("../index.html");
       });
     }
   });
