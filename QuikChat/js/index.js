@@ -87,19 +87,11 @@ function register(event) {
   document.getElementById("email").value = "";
   document.getElementById("password").value = "";
 
-  // ⬇️ إخفاء الرسالة بعد 2 ثانية
-  setTimeout(() => {
-    if (registerAlert) {
-      registerAlert.textContent = "";
-      registerAlert.className = "";
-    }
-  }, 2000);
-
-  // ⬇️ التحويل بعد 1.5 ثانية (زي ما عندك)
+  // ⬇️ استنى وبعدين اعمل redirect
   setTimeout(() => {
     window.location.href = "/chat/QuikChat/html/chat.html";
-  }, 1500);
-})
+  }, 2000);
+});
         .catch((error) => {
           if (error.code === "auth/email-already-in-use")
             document.getElementById("emailAlert").textContent = "❌ This email is already registered";
