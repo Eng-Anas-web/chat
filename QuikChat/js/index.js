@@ -16,101 +16,107 @@ if (!firebase.apps.length) {
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// ================= دالات التحقق (Validation Helpers) =================
+
+// ================= Validation =================
 function validateName(name) {
   return /^[a-zA-Z]+\s[a-zA-Z]+$/.test(name);
 }
+
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
+
 function validatePassword(password) {
-  return password.length >= 5 && password.length <= 10;
+  return /^[a-zA-Z0-9]{5,10}$/.test(password);
 }
 
-// ================= دالة التسجيل (Register) =================
+
+// ================= Register =================
 function register(event) {
   event?.preventDefault();
 
-  const loader = document.getElementById("loader"); // تعريف اللودر
+  const loader = document.getElementById("loader");
+
   let name = document.getElementById("name").value.trim();
   let email = document.getElementById("email").value.trim();
   let password = document.getElementById("password").value.trim();
   let registerAlert = document.getElementById("registerAlert");
 
-  // تصفير الرسائل
+  // reset alerts
   document.getElementById("nameAlert").textContent = "";
   document.getElementById("emailAlert").textContent = "";
   document.getElementById("passwordAlert").textContent = "";
+
   if (registerAlert) {
     registerAlert.textContent = "";
     registerAlert.className = "";
   }
 
-  // 1. تحقق متسلسل
-  if (!name) { document.getElementById("nameAlert").textContent = "Name is required"; return; }
-  if (!validateName(name)) { document.getElementById("nameAlert").textContent = "Name must be First and Last name"; return; }
-  if (!email) { document.getElementById("emailAlert").textContent = "Email is required"; return; }
-  if (!validateEmail(email)) { document.getElementById("emailAlert").textContent = "Invalid email address"; return; }
-  if (!password) { document.getElementById("passwordAlert").textContent = "Password is required"; return; }
-  if (!validatePassword(password)) { document.getElementById("passwordAlert").textContent = "5-10 chars, letters & numbers only"; return; }
+  // validation
+  if (!name) return (document.getElementById("nameAlert").textContent = "Name is required");
+  if (!validateName(name)) return (document.getElementById("nameAlert").textContent = "First and Last name required");
 
-  // 2. إظهار الـ Loader فوراً عند بدء العملية
+  if (!email) return (document.getElementById("emailAlert").textContent = "Email is required");
+  if (!validateEmail(email)) return (document.getElementById("emailAlert").textContent = "Invalid email");
+
+  if (!password) return (document.getElementById("passwordAlert").textContent = "Password is required");
+  if (!validatePassword(password)) return (document.getElementById("passwordAlert").textContent = "5-10 letters & numbers");
+
   loader.classList.remove("d-none");
 
-  // 3. فحص الاسم في الداتا بيز
   db.collection("users")
     .where("name", "==", name)
     .get()
     .then((querySnapshot) => {
+
       if (!querySnapshot.empty) {
         document.getElementById("nameAlert").textContent = "❌ This name is already registered";
-        loader.classList.add("d-none"); // إخفاء في حالة وجود خطأ
-        return;
+        loader.classList.add("d-none");
+        throw new Error("Name exists");
       }
 
-      // 4. إنشاء الحساب
-      auth
-        .createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          return db
-            .collection("users")
-            .doc(userCredential.user.uid)
-            .set({ name, email, uid: userCredential.user.uid });
-        })
-        .then(() => {
-          if (registerAlert) {
-            registerAlert.classList.add("text-success");
-            registerAlert.textContent = "✔ Account created successfully!";
-          }
-          document.getElementById("name").value = "";
-          document.getElementById("email").value = "";
-          document.getElementById("password").value = "";
-          setTimeout(() => {
-            window.location.href = "../html/chat.html";
-          }, 1500);
-        })
-        .catch((error) => {
-          if (error.code === "auth/email-already-in-use")
-            document.getElementById("emailAlert").textContent = "❌ This email is already registered";
-          else if (error.code === "auth/invalid-email")
-            document.getElementById("emailAlert").textContent = "❌ Invalid email format";
-          else {
-            if (registerAlert) {
-              registerAlert.classList.add("text-danger");
-              registerAlert.textContent = "❌ " + error.message;
-            }
-          }
-        })
-        .finally(() => {
-          // إخفاء الـ Loader في كل الأحوال (سواء نجح أو فشل)
-          loader.classList.add("d-none");
-        });
+      return auth.createUserWithEmailAndPassword(email, password);
+    })
+    .then((userCredential) => {
+      return db.collection("users").doc(userCredential.user.uid).set({
+        name,
+        email,
+        uid: userCredential.user.uid
+      });
+    })
+    .then(() => {
+      if (registerAlert) {
+        registerAlert.classList.add("text-success");
+        registerAlert.textContent = "✔ Account created successfully!";
+      }
+
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("password").value = "";
+
+      // redirect (صح 100%)
+      setTimeout(() => {
+        window.location.href = "/chat/html/chat.html";
+      }, 1200);
+    })
+    .catch((error) => {
+      if (error.message !== "Name exists") {
+        if (registerAlert) {
+          registerAlert.classList.add("text-danger");
+          registerAlert.textContent = "❌ " + error.message;
+        }
+      }
+    })
+    .finally(() => {
+      loader.classList.add("d-none");
     });
 }
 
-// ================= دالة تسجيل الدخول (Login) =================
+
+// ================= Login =================
 function login(event) {
   event?.preventDefault();
+
   let email = document.getElementById("email").value.trim();
   let password = document.getElementById("password").value.trim();
   let alertBox = document.getElementById("loginAlert");
@@ -120,51 +126,50 @@ function login(event) {
     return;
   }
 
-  auth
-    .signInWithEmailAndPassword(email, password)
+  auth.signInWithEmailAndPassword(email, password)
     .then(() => {
-      window.location.href = "./html/chat.html";
+      window.location.href = "/chat/html/chat.html";
     })
     .catch((error) => {
       if (alertBox) {
         alertBox.classList.add("text-danger");
-        if (error.code === "auth/invalid-credential")
-          alertBox.textContent = "❌ Invalid email or password.";
-        else alertBox.textContent = "❌ Login error: " + error.message;
+        alertBox.textContent = "❌ " + error.message;
       }
     });
 }
 
-// ================= حماية الـ Event Listeners (تجنب الـ Null Error) =================
-const regForm = document.getElementById("sumbitData"); // تأكد من الـ ID في الـ HTML
+
+// ================= Events =================
+const regForm = document.getElementById("sumbitData");
 if (regForm) regForm.addEventListener("submit", register);
 
 const logForm = document.getElementById("loginForm");
 if (logForm) logForm.addEventListener("submit", login);
 
-// تفعيل التحقق اللحظي للحقول (لو موجودة)
+
+// ================= Live input reset =================
 ["name", "email", "password"].forEach((id) => {
   let input = document.getElementById(id);
   let alertBox = document.getElementById(id + "Alert");
+
   if (input && alertBox) {
-    input.addEventListener("input", function () {
+    input.addEventListener("input", () => {
       alertBox.textContent = "";
     });
   }
 });
 
 
+// ================= Password toggle =================
 function togglePassword() {
   let input = document.getElementById("password");
   let icon = document.getElementById("toggleEye");
 
   if (input.type === "password") {
     input.type = "text";
-    icon.classList.remove("fa-eye");
-    icon.classList.add("fa-eye-slash"); // 👁️ مغلقة
+    icon.classList.replace("fa-eye", "fa-eye-slash");
   } else {
     input.type = "password";
-    icon.classList.remove("fa-eye-slash");
-    icon.classList.add("fa-eye"); // 👁️ مفتوحة
+    icon.classList.replace("fa-eye-slash", "fa-eye");
   }
 }
