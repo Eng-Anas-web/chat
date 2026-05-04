@@ -159,4 +159,16 @@ if (logForm) logForm.addEventListener("submit", login);
     });
   }
 });
+// ================= Password toggle =================
+function togglePassword() {
+  let input = document.getElementById("password");
+  let icon = document.getElementById("toggleEye");
 
+  if (input.type === "password") {
+    input.type = "text";
+    icon.classList.replace("fa-eye", "fa-eye-slash");
+  } else {
+    input.type = "password";
+    icon.classList.replace("fa-eye-slash", "fa-eye");
+  }
+}
