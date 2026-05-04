@@ -96,7 +96,7 @@ function register(event) {
 
       // redirect (صح 100%)
       setTimeout(() => {
-        window.location.href = "/chat/html/chat.html";
+        window.location.href = "QuikChat/html/chat.html";
       }, 1200);
     })
     .catch((error) => {
