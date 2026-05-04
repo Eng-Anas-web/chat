@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (auth) {
     auth.onAuthStateChanged((user) => {
       if (!user) {
+        alert(" أنت لست مسجلاً للدخول! سيتم تحويلك لصفحة التسجيل .");
         // Auth Guard: Redirect if not logged in
         window.location.replace("../index.html");
       } else {
