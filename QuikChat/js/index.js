@@ -129,7 +129,7 @@ function login(event) {
 
   auth.signInWithEmailAndPassword(email, password)
     .then(() => {
-      window.location.href = "QuikChat/html/chat.html";
+      window.location.href = "html/chat.html";
     })
     .catch((error) => {
       if (alertBox) {
