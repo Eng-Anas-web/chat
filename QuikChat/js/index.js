@@ -78,26 +78,16 @@ function register(event) {
       return auth.createUserWithEmailAndPassword(email, password);
     })
     .then((userCredential) => {
-      return db.collection("users").doc(userCredential.user.uid).set({
+
+      // 👇 خزّن البيانات (بدون return عشان ما يوقفش التحويل)
+      db.collection("users").doc(userCredential.user.uid).set({
         name,
         email,
         uid: userCredential.user.uid
       });
-    })
-    .then(() => {
-      if (registerAlert) {
-        registerAlert.classList.add("text-success");
-        registerAlert.textContent = "✔ Account created successfully!";
-      }
 
-      document.getElementById("name").value = "";
-      document.getElementById("email").value = "";
-      document.getElementById("password").value = "";
-
-      // redirect (صح 100%)
-      setTimeout(() => {
-        window.location.href = "QuikChat/html/chat.html";
-      }, 1200);
+      // 👇 التحويل فورًا
+      window.location.href = "QuikChat/html/chat.html";
     })
     .catch((error) => {
       if (error.message !== "Name exists") {
@@ -172,4 +162,4 @@ function togglePassword() {
     input.type = "password";
     icon.classList.replace("fa-eye-slash", "fa-eye");
   }
-}
+           }
