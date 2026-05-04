@@ -1,3 +1,4 @@
+
 // ================= إعدادات فايربيس =================
 const firebaseConfig = {
   apiKey: "AIzaSyAhXyi9bm8BU3-aIhgrI8UG7qYtDyL9akk",
@@ -78,16 +79,26 @@ function register(event) {
       return auth.createUserWithEmailAndPassword(email, password);
     })
     .then((userCredential) => {
-
-      // 👇 خزّن البيانات (بدون return عشان ما يوقفش التحويل)
-      db.collection("users").doc(userCredential.user.uid).set({
+      return db.collection("users").doc(userCredential.user.uid).set({
         name,
         email,
         uid: userCredential.user.uid
       });
+    })
+    .then(() => {
+      if (registerAlert) {
+        registerAlert.classList.add("text-success");
+        registerAlert.textContent = "✔ Account created successfully!";
+      }
 
-      // 👇 التحويل فورًا
-      window.location.href = "QuikChat/html/chat.html";
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("password").value = "";
+
+      // redirect (صح 100%)
+      setTimeout(() => {
+        window.location.href = "html/chat.html";
+      }, 1200);
     })
     .catch((error) => {
       if (error.message !== "Name exists") {
@@ -149,17 +160,3 @@ if (logForm) logForm.addEventListener("submit", login);
   }
 });
 
-
-// ================= Password toggle =================
-function togglePassword() {
-  let input = document.getElementById("password");
-  let icon = document.getElementById("toggleEye");
-
-  if (input.type === "password") {
-    input.type = "text";
-    icon.classList.replace("fa-eye", "fa-eye-slash");
-  } else {
-    input.type = "password";
-    icon.classList.replace("fa-eye-slash", "fa-eye");
-  }
-           }
