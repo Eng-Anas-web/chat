@@ -59,21 +59,24 @@ document.addEventListener("DOMContentLoaded", () => {
   // 3. جلب اليوزرات
   if (auth) {
     auth.onAuthStateChanged((user) => {
-      if (user) {
+      if (!user) {
+        // Auth Guard: Redirect if not logged in
+        window.location.replace("../index.html");
+      } else {
+        // User is logged in
+        const unsubscribe = db.collection("users").doc(user.uid)
+          .onSnapshot((doc) => {
+            if (!doc.exists) {
+              unsubscribe(); // ⛔ وقف الاستماع عشان ميتكررش
 
-      const unsubscribe = db.collection("users").doc(user.uid)
-  .onSnapshot((doc) => {
-    if (!doc.exists) {
-      unsubscribe(); // ⛔ وقف الاستماع عشان ميتكررش
+              auth.signOut().then(() => {
+                alert("تم حذف حسابك من النظام");
 
-      auth.signOut().then(() => {
-        alert("تم حذف حسابك من النظام");
-
-        // ⬇️ استخدم replace بدل href (أفضل في الحالة دي)
-       window.location.replace("/chat/QuikChat/index.html");
-      });
-    }
-  });
+                // ⬇️ استخدم replace بدل href (أفضل في الحالة دي)
+                window.location.replace("/chat/QuikChat/index.html");
+              });
+            }
+          });
 
         // Online status
         db.collection("users").doc(user.uid).update({ status: "online" });
